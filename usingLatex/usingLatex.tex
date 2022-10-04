@@ -1,0 +1,254 @@
+\chapter{Using \LaTeX}\label{ch:usingLatex}
+
+By reading this chapter and comparing the generated output to the \latex code, one should be able to produce all the necessary content expected of a typeset report. Instructions regarding software installation and compilation are to be found towards the end of the chapter. As with any source code, one should first compile, it to ensure it works. This document should compile with no errors or warnings. 
+
+The following sections provide some direction on how to typeset with \LaTeX. Word processing applications utilising  a ``What You See Is What You Get'' (WYSIWYG) type user interface (``Word'' / ``Writer'') are designed for general purpose use. Such applications are not designed for the creation of professional documents and reports requiring high levels of precision to ensure all elements from the individual characters of a word to the placement of tables and figures are presented as they should be. 
+
+A key advantage of \latex is the decoupling of the content from the presentation. This inherently allows one to focus on what is of greatest importance, the content. With \latex one can write code akin to the HTML and CSS relation of decoupling content from presentation, the result of which can be compiled into a professionally typeset document, be it a report, cv, presentation or poster for example. When one needs to develop a professional and structured document then the ``You Asked For It You Got It'' (YAFIYGI) route that many in computing, maths and physics embrace is the generally preferred solution toward achieving a timely and high quality output. 
+
+\clearpage
+
+\section{Structure of this Template}
+The file {\tt thesis.tex} in the root of the directory (ThesisTemplate) is the main file of this template. This is the file that must be compiled to create the document. The {\tt thesis.tex} document contains a lot of configuration settings. The only elements that require editing are details such as the title of the report, authors name and so forth. The only further addition to the file is to use the \emph{\textbackslash include} statement to include additional chapters in the report. One may also comment out the \emph{\textbackslash include} statements using the percentage sign (\%) to develop the report on a chapter by chapter basis. The BibTeX database {\tt thesis.bib} is also included within the root. All the actual content of the report is divided into directories each with a {\tt .tex} file containing the chapter content. Appendix~\ref{fig:append:TemplateStructure} provides a visual outline of the file and folder structure.
+
+\section{Adding Figures to the Report}
+The example below (Figure~\ref{fig:using:samplepngImage}) features a bitmap image. One can see that the extension for the image file isn't specified, as this template is setup to automatically search for .jpg, .png, .gif and .pdf images. To add a figure / image one should replicate the code in this subsection, which generates Figure~\ref{fig:using:samplepngImage}. One should then modify the \textbf{label}, \textbf{caption} and \textbf{image file name} to suit. The size of the displayed image within the document can be varied by adjusting the height and width attributes. To rotate an image 90 degrees an optional attribute can be added, for example [width=.4\textbackslash linewidth, angle=90].
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=.34\linewidth]{usingLatex/images/samplepng}
+\caption{Caption for Bitmap Image Example} \label{fig:using:samplepngImage}
+\end{center}
+\end{figure}
+
+ One can insert graphic elements using \latex in a number of ways. Vector based imagery such as diagrams saved to the pdf format may use the \emph{\textbackslash includegraphics} command with the optional \emph{viewport} attribute to specify a precise area of the graphic to be included. Figures should also include a Caption and a Label for referencing.
+
+When inserting a Figure (Figure~\ref{fig:using:VectorGraphicElementPDF}) one uses the \emph{\textbackslash begin\{figure\}} and \emph{\textbackslash end\{figure\}} commands. The image presented is a vector graphic in the form of a pdf file. When working with such files it is usually necessary to include the optional \emph{viewport} attribute to designate the specific area in which to focus. The first pair of coordinates (x~\&~y) designate the pixel location of the lower left corner. The second pair identify the upper right hand corner. Modification of these coordinates allows one to focus in upon a particular area of interest within the vector image. 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\linewidth]{usingLatex/images/VectorGraphicElementPDF.pdf}
+\caption{Vector Graphic - pdf of a PowerPoint Slide}
+\label{fig:using:VectorGraphicElementPDF}
+\end{figure}
+
+The optional attribute [H] when beginning a Figure inserts the graphic element at the specified location. Other options such as [htb] (here, top, bottom) will place the graphic in the most suitable place that \latex can find. This however can have a negative impact on memory allocation if a large number of images exist, therein preventing compilation.
+
+
+
+One may use the \emph{minipage} command when inserting two figures to span across the page. This allows for the subdividing of the page into a number of columns of specified width. Figure~\ref{fig:using:Example1} \&~\ref{fig:using:Example2} illustrate how one may zoom in / focus on a particular section of a graphic by altering the coordinates of the \emph{viewport}. 
+
+\begin{figure}[H]
+\begin{minipage}[t]{7.4cm}
+\begin{center}
+\includegraphics*[viewport= 20 20 600 440, width=.8\linewidth]{usingLatex/images/VectorGraphicElementPDF.pdf}
+\caption{Viewport = 20 20 600 440}
+\label{fig:using:Example1}
+\end{center}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{7.4cm}
+\begin{center}
+\includegraphics*[viewport= 220 200 400 330, width=.8\linewidth]{usingLatex/images/VectorGraphicElementPDF.pdf}
+\caption{Viewport = 220 200 400 330}
+\label{fig:using:Example2}
+\end{center}
+\end{minipage}
+\end{figure}
+
+\clearpage
+The key advantage to using vector imagery for diagrammatic and textual content is that such imagery contains embedded instruction on what is to be drawn, therefore it can scale to any size without loss of image quality. This contrasts with a bitmap or raster image which results in a matrix / array of pixel values. If saving a screenshot then  .png is preferable over a .jpg which is a lossy file format yielding many artefacts with image content which transitions rapidly, such as from text or a line to a background.
+
+\section{Referencing Another Element of the Report}
+
+To refer to another part of the document one must use a combination of the \emph{\textbackslash ref} and \emph{\textbackslash label} commands. The label is a unique identifier, therefore when working with large documents it helps to give references meaningful names. Examples of this includes prefixing Table references with \emph{tab:}, figures with \emph{fig:}, chapters with \emph{ch:}. In very large documents in may also be useful to add an additional level of prefixing to represent the chapter the label is in. In this example chapter the tables and figures have the additional prefix of \emph{using} to represent the \emph{usingLatex} chapter. The tilde ($\sim$) known as a ``tie'' in \latex is used to ensure that a reference remains as a single unified object. All instances of \emph{\textbackslash ref} should be preceded with the tilde. Section~\ref{using:sec:WorkWithMath} refers to ``Working with Mathematics'' identified with \emph{\textbackslash label$\{$using:sec:WorkWithMath$\}$} right after the section heading and referred to here via the instruction \emph{Section$\sim$\textbackslash ref$\{$using:sec:WorkWithMath$\}$}.
+
+\section{Citing Bibliographic References}
+Bibliographic references are stored in a database (.bib file extension), this contains a list of articles, proceedings, books, thesis and online information sources. Each type of publication has a number of required fields such as a unique identifier, author and title. To cite a reference within the main body text one must use the \emph{\textbackslash cite} command as per the following examples. Donald Knuth \cite{book:knuth_1973} for example is well known for his work on the Art of Computer Programming. The SETI@Home project \cite{online:berkeleyBOINC} is an example of a webpage citation. One can also work with articles \cite{art:Russell:1978:Cray1}, MSc Thesis \cite{msc:Shannon:1940}, PhD Thesis \cite{phd:Sutherland:1963} or articles within conference proceedings \cite{proc:Ewald:1978:HPG}. Dr. Doolan \cite{online:Doolan:2016:AcademicResources} has provided an online list of resources that may be useful for undertaking literature reviews, along with a number of useful templates, \latex tools and necessary software. These citations were made using the \emph{\textbackslash cite\{bibEntryReference\}} command. 
+
+\subsection{Specifying Pages or other Elements within a Reference}
+To refer to a particular page, section, chapter, equation or other element of a large document add the corresponding information within square brackets right after the \emph{\textbackslash cite} command, such as \emph{\textbackslash cite[p. 2]$\{$online:IEEE-ReferenceGuide:2018$\}$}. Further information is available from the ``IEEE Reference Guide'' \cite[p.3]{online:IEEE-ReferenceGuide:2018}, located in section I.B \cite[Sec I.B]{online:IEEE-ReferenceGuide:2018}. Table~\ref{tab:ReferenceExamples} illustrates a number of common elements one may refer to within a citation, in this case pages or elements of reference ``42'' \cite[Ch. 27]{book:Adams:1979}.
+
+\begin{table}[H]
+\caption{Examples of References within a Reference}\label{tab:ReferenceExamples}
+\centering
+\small
+\begin{tabular}{ll}
+\toprule \textbf{Reference Type}& \textbf{Presentation Format}\\
+\midrule
+A Single Page & [42, p. 8] \\
+Range of Pages & [42, pp. 4-8] \\
+Figure & [42, Fig. 8] \\
+Table & [42, Tab. 4] \\
+Appendix & [42, Appendix. F] \\
+Specific Section & [42, Sec. 4.8] \\
+Chapter and Pages & [42, Ch. 4 pp 42-64] \\
+An Algorithm & [42, Alg. 4] \\
+An Equation & [42, eq. (4)] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Referencing Style}
+Quite a number of Universities use the ``Harvard'' referencing style, this makes use of the author name and date in the body text of the report to make a citation. The references generally found at the end of the report are sorted by author name. Several subject disciplines regularly use the Harvard format such as the arts, humanities and business. This is fitting with a more discursive narrative common amongst those subject areas. 
+
+It is always useful to check the University Referencing Style Guide for your institution. You will find that the University Library provides detailed information and examples on how to reference. Many University Style Guides may suggest Harvard as the institutional standard, however they may also stipulate the use of the most appropriate style for the discipline. The IEEE Referencing Style in this template is regularly used in Computing.      
+
+In Computing it is far more common to see citations in the body text represented as a number within square brackets. The associated references are listed in the order they appear within the body text, preceded with the associated reference number. An advantage with this referencing style is far less real-estate being occupied by the citation. 
+
+\subsection{Compiling a BibTeX Database}
+
+Having initially compiled the document using pdfLatex on your local machine making use of a \latex distribution and a front end editor a number of helper files are created that aid in referencing and citations. One must the compile the bibtex database, followed by an additional two compiles using pdfLatex. Citing additional bibliographic references within the body of the document being produced will require the recompile of the bibtex database. In the case that the bibtex reference of a cited article cannot be found one will see a question mark (?) instead of the proper citation and a compile warning.
+
+\section{Working with Mathematics}\label{using:sec:WorkWithMath}
+The power of \latex in typesetting mathematical formula is one of its key strengths. The mathematical definition of the ``Cantor set'' is a good example of this in action encompassed within an \emph{\textbackslash equation} environment.
+
+\begin{equation}
+\displaystyle\sum_{n=0}^\infty \frac{2^n}{3^{n+1}} = \frac{1}{3} +
+\frac{2}{9} + \frac{4}{27} + \frac{8}{81} + \cdots =
+\frac{1}{3}\left(\frac{1}{1-\frac{2}{3}}\right) = 1
+\end{equation}
+ The previous equation demonstrates the use of sigma, fractions, large brackets, power, and dots. The function that defines the MSet $Z_{n+1} =
+Z_{n}^2 + C$ is a simpler example of math in use within the body text of a paragraph. Matrix Multiplication is typically regarded as an $O(n^3)$
+operation. One may use the \emph{equation} environment for more complex mathematical formula that should standout. For example the product  $C$ of two matrices $A \in M_{n,m}(R)$ and $B \in
+M_{m,p}(R)$ may be defined as
+
+\begin{equation}
+(A \times B)_{ij} = \sum_{k=0} ^{m-1} a_{ik}b_{kj},~
+i=0,...,n-1,~j=0,...,p-1.
+\end{equation}
+
+The sizes of the matrices must satisfy $(n \times m)(m \times p) =
+(n \times p)$. Matrix multiplication is an associative process
+thereby $a\cdot(b \cdot c) = (a \cdot b) \cdot c$. Essentially to
+find the value of a particular cell $C_{i,j}$ it is necessary to
+multiply row $i$ of the matrix $A$ with column $j$ of matrix $B$
+summing all the multiplications.
+
+\clearpage
+\section{Inserting an Algorithm}
+
+The \emph{algorithm2e} environment \cite{online:Fiorio2016algorithm2e} may be used to generate algorithms (Algorithm~\ref{alg:using:SampleAlgorithm}). If no algorithms are used within the document then comment out \emph{\textbackslash listofalgorithms } in the file {\tt thesis.tex} to remove the list of algorithms page.
+
+\begin{algorithm}
+%\dontprintsemicolon
+\While{(RANK $<$ COMPSIZE)}{
+    \If{(RANK == MASTER)}{
+        generate random value \;
+        \For{(each item K)}{
+            get result \;
+        }
+    }
+}
+\caption{A Sample Algorithm} \label{alg:using:SampleAlgorithm}
+\end{algorithm}
+
+
+\section{Adding a Table with the Tabular Environment}
+
+The cells in Table~\ref{tab:using:TableExample} displays three columns of left-aligned and one column of justified data. The cell contents can be aligned to the left (l), right (r), center (c) or (p). Vertical bars may sometimes be seen in tables but these generally look unprofessional. The Booktabs package \cite{online:Fear2016BookTabs} allows for the creation of professional looking tables as shown in the example.  The use of \emph{\textbackslash toprule}, \emph{\textbackslash midrule} and \emph{\textbackslash bottomrule} commands provided by the package allow for rules of varying thickness and spacing. Data elements (cells / columns) within a table are divided up using the ampersand (\&). Completion of a row ends with a double backslash (\textbackslash\textbackslash). Tables as with figures need a caption and a label. The WinShell editor has a GUI based utility to aid in the creation of the tabular data. Replicate the code in this subsection, which generates Table~\ref{tab:using:TableExample}. One should modify the \textbf{label}, \textbf{caption} and \textbf{content} of the table to suit.
+
+\begin{table}[H]
+\caption{Table Caption}\label{tab:using:TableExample}
+\centering
+\small
+\begin{tabular}{lllp{5cm}}
+\toprule \textbf{Heading 1}& \textbf{Heading 2}&\textbf{Heading 3}&\textbf{Heading 4}\\
+\midrule
+Cell A1 & Cell B2 & Cell C3 & Cell D4\\
+Cell E1 & Cell F2 & Cell G3 & Justified text with a defined column size of 5cm\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+\section{Inserting Program Code Samples}
+
+To insert small segments of program code (Listing~\ref{code:SampleCode}) that detail how interesting algorithms and so forth are implemented use the \emph{lstlisting} command. Inclusion of program code again requires a Caption and Label. Sample code from external files may also be included (Listing~\ref{code:externalSampleCodeLabel}), by supplying the relative path to the source file. 
+
+\begin{lstlisting}[caption=Sample Program Code Listing, label=code:SampleCode]
+if(rndVal==0){
+    if(opType > 2){
+       //do something
+    }
+}
+\end{lstlisting}
+
+\lstinputlisting[caption={The Caption for the Code Listing},label={code:externalSampleCodeLabel}]{usingLatex/myCodeFile.java}
+
+\section{Creating Numeric and Bulleted Lists}
+Replicate the code in this subsection to create numbered or bulleted lists. As can be seen in the example below one can create different levels of list elements if necessary. Its best to limit the use of lists and focus more on paragraphs of text to convey the narrative of a report. Lists can sometimes be useful emphasise key elements. 
+
+{\setstretch{0.85}% Reduces line spacing to compact the list items
+\begin{enumerate}
+\item First element of a numbered list
+\item Second element of a numbered list
+\end{enumerate}
+\begin{itemize}
+\item First element of a bulleted list
+\item Second element of a bulleted list
+    \begin{itemize}
+    \item First nested element of a bulleted list
+    \item Second nested element of a bulleted list
+    \end{itemize}
+\end{itemize}
+} % Closing Parenthesis  with respect to the use of \singlespacing for the display of the list elements
+
+
+\section{Using the Correct Quotes}
+To surround a piece of text with double quotes one must place two single quotes on either side of the text. The double quote on the left is created using two left quotes (\lq) this is located just above the \emph{tab} key on the keyboard. The right hand double quote is created using two right hand quotes via (\rq) located just above and to the left of the right shift key. A properly formatted quotation should look like ``This is a quotation''. Notice how the direction of the quotes are opposite to one another. A larger example using the \emph{\textbackslash Huge} font size option, is presented below so the quotes can be clearly seen.
+
+\begin{center}
+\Huge{``This is a quotation''}
+\end{center}
+
+\section{Widows and Orphans Anomalies to Avoid}
+These anomalies can occur at the paragraph and page level. A paragraph where a single word or two flows over on to a new line is inherently wasting valuable space on the page. It is thereby worthwhile to review and rephrase the paragraph to avoid such instances \textcolor{red}{occurring.}  
+
+The paragraph above is a good example of such wasted space, take note of the last word of the paragraph ``occouring'', in essence it is positioned all alone, away from all the other words compromising the unit paragraph. Another example is where the starting line of a paragraph begins at the end of a page, with the bulk of the paragraph existing on the next page. Making use of \emph{\textbackslash clearpage} can often help, to push the entire paragraph on to the next page. Likewise the last sentence of a paragraph may run over onto the next page. One should review and rephrase the paragraph as needed to avoid this, therein maintaining the structural integrity and cohesiveness of the paragraph as a single unit. 
+
+\section{What is a Paragraph}
+All too often one sees paragraphs comprising of a single sentence, comprising a line or two. Such is inherently not a paragraph. A paragraph should ideally comprise around half a dozen plus sentences, focused on are particular topic of discussion. Often the starting sentence of the paragraph introduces the concept, while the last sentence concludes the discussion put forth. Hence a paragraph should be a cohesive unit of narrative unto itself. This paragraph, not withstanding this sentence, started out by outlining a common problem with paragraphs, then explained the expected structure and concluded that it should be a standalone unit of prose. 
+
+\section{\latex Setup and Install on a Local Machine}
+The implementation of \latex that is often used is MikTeX (\url{http://miktex.org}). It is typically best to install the complete MiKTeX  system. A complete system comprises of around 40K files. A minimal install will necessitate the installation of packages as needed. One can individually download and integrate packages into a MikTeX system using the ``Package Manager (Admin)'' application. Initially a small installer application must be downloaded and executed. This in-turn downloads the most recent implementation of the MikTeX system. Run the installer again and select the directory of the downloaded package. Mac users can use the MacTeX distribution (\url{http://www.tug.org/mactex/}). 
+
+\subsection{Front End Editor}
+Texmaker (\url{https://www.xm1math.net/texmaker/download.html}) is a very useful free GUI based editor that includes a built in document viewer. TeXnicCenter is a free download available at (\url{http://sourceforge.net/projects/texniccenter/}). An alternative is WinEdt a shareware ASCII editor (\url{http://www.winedt.com}). WinEdt can be freely used for a 30 day period, after which one will periodically receive reminders to register the product. WinShell (\url{http://www.winshell.de}) is another option for Windows users. An advantage of WinShell is its in-built BibTeX GUI editor. It also has a useful Table Wizard. TexShop (\url{http://pages.uoregon.edu/koch/texshop/}) is a popular option for Mac users, providing a very easy to use editor. Note the website links in this section were created using the \emph{\textbackslash url} command and included for ease of reference. 
+
+\section{Start Compiling and Editing}
+{\setstretch{0.98}
+\begin{enumerate}
+\item Read the instructions in this file thesisTemplate.pdf, compare the code in the file usingLatex.tex to that of the resultant output of the Using \latex chapter. 
+
+\item Download and install the back-end \latex system and front-end text editor. 
+
+\item Compile the files thesis.tex and thesis.bib to generate the file thesis.pdf so that it is identical to file thesisTemplate.pdf.
+\begin{enumerate}
+\item To achieve this compile with pdfLaTeX, then run BibTeX and compile with pdfLaTeX two further times.
+
+\item It is only necessary to run BibTeX when new citations are added.
+
+\item Two compiles of pdfLaTeX is sufficient to allow for correct reference  linkage.
+
+\item If one is simply adding additional content (text / figures / tables) then a single compile of pdfLaTeX is sufficient for testing purposes.
+\end{enumerate}
+\item Several new files may now be seen in the ``ThesisTemplate'' root and subfolders. 
+
+\item With a successful compile achieved, start reading through the \latex documents (.tex) to see how the various elements are assembled.
+
+\item Begin editing the document starting with {\tt thesis.tex} by entering elements such as ``Thesis Title'' and ``Author Name''.
+
+\item When it is necessary to start inserting figures / tables and so forth, copy and paste the \latex code provided and edit as necessary.
+\end{enumerate}
+} % END setstretch
+
+
+\section{Conclusion  the \latex Advantage}
+Having read this chapter and compared the {\tt .tex} source to the generated output, one should have all the knowledge necessary to typeset a well formatted and elegant project report. One needs to become familiar with a number of commands, but once mastered it should greatly speedup the report writing process. By using \latex to typeset a document one is removed from a myriad of issues in relation to formatting allowing one to concentrate on the most important task, that of content creation. 
+
+By making use of \latex one can focus on the content. As one will see by compiling the source code of this document, all the material is laid out without having to spend significant amounts of time focused on the presentation elements. All the presentation elements from headings and section numbering are automatically generated, as are things such as report front matter, table of contents and references to highlight just a few.
