@@ -6,13 +6,13 @@
 
 \def\degreetitle#1{\gdef\@degreetitle{#1}}
 \def\rpttype#1{\gdef\@rpttype{#1}}
-
+%\def\studentID#1{\gdef\@studentID{#1}}
 \def\principaladviser#1{\gdef\@principaladviser{#1}}
 \def\advis@r{Advisor} % default spelling---we are English!
 \def\principaladvisor#1{\gdef\@principaladviser{#1}\gdef\advis@r{Advisor}}
 \def\submitdate#1{\gdef\@submitdate{#1}}
 \def\copyrightyear#1{\gdef\@copyrightyear{#1}} 
-\def\@title{}\def\@author{}\def\@dept{School of Computer Science \& Mathematics }
+\def\@title{}\def\@author{}
 
 \def\@submitdate{\ifcase\the\month\or
   January\or February\or March\or April\or May\or June\or
@@ -23,26 +23,41 @@
 
 \def\titlep{%
         \thispagestyle{empty}%
-        \null\vskip1in%
+        \null
         \begin{center}
-            \includegraphics[height=40mm]{ljmulogo.jpg}
+            \includegraphics[height=20mm]{ljmulogo.jpg}
         \end{center}
-        \vskip 0.65in
         \begin{center}
-                \large\expandafter{\@title}\\
-        \vskip 0.45in
-                {\Large \@author}
+        \vskip 0.15in
+        \LARGE
+        School of Computer Science and Mathematics\\ 
+        \textbf{6100COMP Project}
+
+        \vskip 0.3in
+        \normalsize
+        Final Report Submitted by                    
+      
+        \LARGE \textbf{\@author}
+
+        \large
+        \textbf{\studentID}
+
+        \textbf{\degreeAward}
+        \vskip 0.3in
+        {\normalsize Title}
+
+        {\LARGE \textbf{\reportTitle} }
+
+        \vskip 0.3in
         
-        \vskip 0.75in
-                A report submitted as part of the requirements \\for the degree of
-                \@degreetitle  
- \\ at the \@dept \\Liverpool John Moores University, Liverpool, UK
-        
-        \vskip 0.5in
-                \@submitdate
-        \vfill
-                \normalfont
-                Supervisor \@principaladviser\\
+        {\normalsize
+        Supervisor by\\} {\large\textbf{\@principaladviser}}
+
+        \vskip 0.4in       
+
+        {\normalsize Submitted on}\\
+        \textbf{\number\day~\pgfcalendarmonthname{\month} \number\year}
+                
         \end{center}\vskip.5in\newpage}
 
 \def\declpage{%

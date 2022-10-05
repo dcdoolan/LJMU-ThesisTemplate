@@ -1,5 +1,6 @@
 \documentclass{template}
 \usepackage{graphicx,parskip,appendix,float,geometry}
+\usepackage{pgfcalendar}
 
 \usepackage[
     backend=biber,
@@ -43,7 +44,6 @@
 \definecolor{colWhite}{rgb}{1,1,1}
 
 \newcommand{\MyHookSign}{\hbox{\ensuremath\hookleftarrow}}
-
 \newtheorem{Theorem}{Theorem}
 \newtheorem{Proposition}[Theorem]{Proposition}
 \newtheorem{Lemma}[Theorem]{Lemma}
@@ -80,9 +80,14 @@
 \sloppy % NOTE: To ensure the Right Hand Margin is used (Especially for long URLS)
 
 \newcommand{\latex}{\LaTeX\ }
-\newcommand{\authorName}{Author Name}
-\newcommand{\reportTitle}{Report Title}
-\newcommand{\degreeAward}{BSc in Computer Science } 
+\newcommand{\reportTitle}{Project Title}
+\newcommand{\authorName}{Name}
+\newcommand{\studentID}{ID Number}
+\newcommand{\degreeAward}{Programme} 
+\newcommand{\supervisor}{Supervisor's Name} 
+\newcommand{\dept}{School of Computer Science \& Mathematics}
+\newcommand{\university}{Liverpool John Moores University}
+\newcommand{\universityLocation}{Liverpool, UK}
 
 \hypersetup{
     pdftitle    = {\reportTitle},
@@ -103,9 +108,9 @@
 
 \title{\huge{\reportTitle}}
 \author{\authorName}
-\degreetitle{\degreeAward} % Replace with appropriate degree
+\degreetitle{\degreeAward} 
+\principaladviser{\supervisor}
 \rpttype{BSc}    % Replace PhD / MSc  / BSc.
-\principaladviser{Dr. Daniel C. Doolan}
 
 \include{intro/abstract}
 \listofalgorithms   % NOTE: Will generate a list of Algorithms in the Table of Contents Section
